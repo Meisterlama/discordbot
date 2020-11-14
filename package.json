@@ -4,12 +4,20 @@
   "description": "",
   "main": "bot.js",
   "scripts": {
-    "bot": "node bot.js"
+    "start": "node .",
+    "start-dev": "pm2 start . --watch",
+    "stop-dev": "pm2 stop .",
+    "monit": "pm2 monit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.4.1"
+    "discord.js": "^12.4.1",
+    "infobox-parser": "^3.4.1",
+    "wikijs": "^6.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.13.0"
   }
 }

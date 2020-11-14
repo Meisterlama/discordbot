@@ -22,6 +22,10 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
+client.on('disconnect', () => {
+    console.log('Disconnecting...');
+})
+
 // Message Event
 client.on('message', checkMessage);
 
@@ -39,7 +43,13 @@ function checkMessage(message) {
         || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
     // Not a command
-    if (!command) return message.channel.send("This is not a command !");
+    if (!command) {
+        return message.channel.send(`\`${commandName}\` is not a command !`);
+    }
+
+    if (command.admin && message.author.id !== config.adminID) {
+        return message.channel.send("You cannot use this command");
+    }
 
     // Insufficient args
     if (command.args && !args.length) {
@@ -77,6 +87,7 @@ function checkMessage(message) {
 
     try {
         command.execute(message, args);
+        console.log(`${message.author.username} executed ${message.content}`);
     } catch (error) {
         console.error(error);
         message.reply('There was an error trying to execute that command');
