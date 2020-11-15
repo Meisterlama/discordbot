@@ -86,8 +86,8 @@ function checkMessage(message) {
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
     try {
-        command.execute(message, args);
         console.log(`${message.author.username} executed ${message.content}`);
+        command.execute(message, args);
     } catch (error) {
         console.error(error);
         message.reply('There was an error trying to execute that command');

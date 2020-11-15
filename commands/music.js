@@ -1,10 +1,13 @@
+const fs = require('fs');
+
 var dispatcher;
 var connection;
 
 module.exports = {
-    name: 'soviet',
-    description: 'Play soviet',
+    name: 'music',
+    description: 'Play random music',
     guildOnly: true,
+    cooldown: 5,
     async execute(message, args) {
         if (args[0] === 'kill' && dispatcher)
         {
@@ -14,8 +17,11 @@ module.exports = {
         else if (message.member.voice.channel) {
             connection = await message.member.voice.channel.join();
 
+            const musics = fs.readdirSync('music');//.filter(file => file.endsWith('.mp3'));
+            const index = Math.floor(Math.random() * musics.length);
             // Create a dispatcher
-            dispatcher = connection.play('music/soviet.mp3', { volume: 0.5});
+            dispatcher = connection.play(`music/${musics[index]}`, { volume: 0.5});
+            console.log(musics[index]);
 
             dispatcher.on('start', () => {
                 console.log('audio.mp3 is now playing!');

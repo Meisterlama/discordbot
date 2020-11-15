@@ -9,6 +9,7 @@ module.exports = {
     name: 'wiki',
     description: 'Wikipedia article',
     cooldown: 5,
+    usage: '[command article]',
     async execute(message, args) {
 
         const wiki = new wikipedia();
